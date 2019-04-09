@@ -39,8 +39,8 @@ type Meta map[string][]string
 func (m Meta) Merge(metas ...Meta) Meta {
 	meta := Meta{}
 
-	for i := range metas {
-		for k, v := range metas[i] {
+	for _, me := range append([]Meta{m}, metas...) {
+		for k, v := range me {
 			meta[k] = v
 		}
 	}
