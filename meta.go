@@ -45,6 +45,13 @@ func (m Meta) Merge(metas ...Meta) Meta {
 
 	for _, me := range metas {
 		for k, values := range me {
+			if k == "" {
+				continue
+			}
+			if k[0] == '_' {
+				meta[k] = values
+				continue
+			}
 			meta.Add(k, values...)
 		}
 	}
