@@ -1,6 +1,7 @@
 package metax
 
 import (
+	"errors"
 	"net/http"
 )
 
@@ -15,10 +16,9 @@ type metaContextRoundTripper struct {
 }
 
 func (h *metaContextRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
-	meta := MetaFromContext(req.Context())
-	req.Header.Set("X-Request-ID", meta.String())
-	if h.next != nil {
-		return h.next.RoundTrip(req)
+	req.Header.Set("X-Request-ID", MetaFromContext(req.Context()).String())
+	if h.next == nil {
+		panic(errors.New("need use before other RoundTripper"))
 	}
-	return nil, nil
+	return h.next.RoundTrip(req)
 }

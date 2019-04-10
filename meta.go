@@ -41,11 +41,11 @@ func ParseMeta(query string) Meta {
 type Meta map[string][]string
 
 func (m Meta) Merge(metas ...Meta) Meta {
-	meta := Meta{}
+	meta := m.Clone()
 
-	for _, me := range append([]Meta{m}, metas...) {
-		for k, v := range me {
-			meta[k] = v
+	for _, me := range metas {
+		for k, values := range me {
+			meta.Add(k, values...)
 		}
 	}
 
@@ -60,8 +60,8 @@ func (m Meta) Clone() Meta {
 	return meta
 }
 
-func (m Meta) Add(key string, value string) {
-	m[key] = append(m[key], value)
+func (m Meta) Add(key string, values ...string) {
+	m[key] = append(m[key], values...)
 }
 
 func (m Meta) Get(key string) string {

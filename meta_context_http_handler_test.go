@@ -3,6 +3,7 @@ package metax
 import (
 	"fmt"
 	"net/http"
+	"testing"
 	"time"
 )
 
@@ -14,7 +15,7 @@ func (h *handler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	fmt.Println(meta)
 }
 
-func ExampleMetaContextHttpHandler() {
+func TestMetaContextHttpHandler(t *testing.T) {
 	h := &handler{}
 
 	for i := 0; i < 20; i++ {
