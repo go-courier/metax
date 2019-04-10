@@ -11,7 +11,7 @@ var (
 )
 
 func ContextWith(ctx context.Context, key string, values ...string) context.Context {
-	return ContextWithMeta(ctx, MetaFromContext(ctx).With(key, values...))
+	return ContextWithMeta(ctx, Meta{key: values})
 }
 
 func ContextWithMeta(ctx context.Context, meta Meta) context.Context {
