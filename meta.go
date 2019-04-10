@@ -10,8 +10,12 @@ var (
 	contextKey = &struct{}{}
 )
 
+func ContextWith(ctx context.Context, key string, values ...string) context.Context {
+	return ContextWithMeta(ctx, MetaFromContext(ctx).With(key, values...))
+}
+
 func ContextWithMeta(ctx context.Context, meta Meta) context.Context {
-	return context.WithValue(ctx, contextKey, meta)
+	return context.WithValue(ctx, contextKey, MetaFromContext(ctx).Merge(meta))
 }
 
 func MetaFromContext(ctx context.Context) Meta {
