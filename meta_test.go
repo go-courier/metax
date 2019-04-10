@@ -36,7 +36,7 @@ func TestMeta(t *testing.T) {
 		require.Equal(t, []string{"2", "3"}, MetaFromContext(ctx)["_key"])
 	})
 
-	t.Run("EmptyKeyIngore", func(t *testing.T) {
+	t.Run("EmptyKeyIgnore", func(t *testing.T) {
 		ctx := ContextWith(context.Background(), "", "1")
 		require.Len(t, MetaFromContext(ctx), 0)
 	})
