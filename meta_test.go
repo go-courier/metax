@@ -21,10 +21,23 @@ func TestParseMeta(t *testing.T) {
 }
 
 func TestMeta(t *testing.T) {
-	ctx := ContextWith(context.Background(), "key", "1")
-	ctx = ContextWithMeta(ctx, Meta{
-		"key": {"2", "3"},
+
+	t.Run("ContextConcat", func(t *testing.T) {
+		ctx := ContextWith(context.Background(), "key", "1")
+		ctx = ContextWithMeta(ctx, (Meta{}).With("key", "2", "3"))
+
+		require.Equal(t, []string{"1", "2", "3"}, MetaFromContext(ctx)["key"])
 	})
 
-	require.Equal(t, []string{"1", "2", "3"}, MetaFromContext(ctx)["key"])
+	t.Run("ContextOverwrite", func(t *testing.T) {
+		ctx := ContextWith(context.Background(), "_key", "1")
+		ctx = ContextWithMeta(ctx, (Meta{}).With("_key", "2", "3"))
+
+		require.Equal(t, []string{"2", "3"}, MetaFromContext(ctx)["_key"])
+	})
+
+	t.Run("EmptyKeyIngore", func(t *testing.T) {
+		ctx := ContextWith(context.Background(), "", "1")
+		require.Len(t, MetaFromContext(ctx), 0)
+	})
 }
