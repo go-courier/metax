@@ -2,6 +2,12 @@ package metax
 
 import "context"
 
+func CtxFromContext(ctx context.Context) Ctx {
+	return Ctx{
+		ctx: ctx,
+	}
+}
+
 type Ctx struct {
 	ctx context.Context
 }
