@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/require"
+	. "github.com/onsi/gomega"
 )
 
 type SomeString struct {
@@ -21,6 +21,6 @@ func TestCtx(t *testing.T) {
 	s := &SomeString{}
 	s2 := s.WithContext(ContextWith(context.Background(), "k", "1"))
 
-	require.Equal(t, "", MetaFromContext(s.Context()).Get("k"))
-	require.Equal(t, "1", MetaFromContext(s2.Context()).Get("k"))
+	NewWithT(t).Expect(MetaFromContext(s.Context()).Get("k")).To(Equal(""))
+	NewWithT(t).Expect(MetaFromContext(s2.Context()).Get("k")).To(Equal("1"))
 }

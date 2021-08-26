@@ -4,29 +4,30 @@ import (
 	"context"
 	"net/url"
 	"strings"
+
+	contextx "github.com/go-courier/x/context"
 )
 
-var (
-	contextKey = &struct{}{}
-)
+type contextKeyMeta struct {
+}
 
 func ContextWith(ctx context.Context, key string, values ...string) context.Context {
 	return ContextWithMeta(ctx, Meta{key: values})
 }
 
 func ContextWithMeta(ctx context.Context, meta Meta) context.Context {
-	return context.WithValue(ctx, contextKey, MetaFromContext(ctx).Merge(meta))
+	return contextx.WithValue(ctx, contextKeyMeta{}, MetaFromContext(ctx).Merge(meta))
 }
 
 func MetaFromContext(ctx context.Context) Meta {
-	if m, ok := ctx.Value(contextKey).(Meta); ok {
+	if m, ok := ctx.Value(contextKeyMeta{}).(Meta); ok {
 		return m
 	}
 	return Meta{}
 }
 
 func ParseMeta(query string) Meta {
-	if strings.Index(query, "=") == -1 {
+	if !strings.Contains(query, "=") {
 		return Meta{
 			"_id": []string{query},
 		}
