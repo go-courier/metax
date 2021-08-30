@@ -3,7 +3,7 @@ module github.com/go-courier/metax
 go 1.17
 
 require (
-	github.com/go-courier/x v0.0.4
+	github.com/go-courier/x v0.0.6
 	github.com/onsi/gomega v1.16.0
 )
 
