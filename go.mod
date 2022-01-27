@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/go-courier/x v0.0.4
-	github.com/onsi/gomega v1.16.0
+	github.com/onsi/gomega v1.18.1
 )
 
 require (
