@@ -4,11 +4,12 @@ go 1.17
 
 require (
 	github.com/go-courier/x v0.0.4
-	github.com/onsi/gomega v1.16.0
+	github.com/onsi/gomega v1.24.1
 )
 
 require (
-	golang.org/x/net v0.0.0-20210428140749-89ef3d95e781 // indirect
-	golang.org/x/text v0.3.6 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
+	github.com/google/go-cmp v0.5.9 // indirect
+	golang.org/x/net v0.2.0 // indirect
+	golang.org/x/text v0.4.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
